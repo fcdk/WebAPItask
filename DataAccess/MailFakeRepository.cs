@@ -4,7 +4,7 @@ using Epam.Sdesk.Model;
 
 namespace Epam.Sdesk.DataAccess
 {
-    public class MailFakeService
+    public class MailFakeRepository
     {
         private readonly ICollection<Mail> _mails = new List<Mail>
         {

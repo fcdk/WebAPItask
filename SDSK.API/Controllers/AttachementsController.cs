@@ -7,35 +7,47 @@ namespace SDSK.API.Controllers
 {
     public class AttachementsController : ApiController
     {
-        private readonly AttachementFakeService _attachementService = new AttachementFakeService();
+        private readonly AttachementFakeRepository _attachementRepository = new AttachementFakeRepository();
 
         // GET api/mails/{id}/attachements
         [Route("api/mails/{id}/attachements")]
         public IEnumerable<Attachement> GetByMailId(int id)
         {
-            return _attachementService.GetAttachementsByMailId(id);
+            return _attachementRepository.GetAttachementsByMailId(id);
         }
 
-        // GET api/mails/{id}/attachements/{attId}
+        // GET api/mails/{id}/attachements/{attId}?extention={ext}&status={status}
         [Route("api/mails/{id}/attachements/{attId}")]
         public Attachement GetByMailIdAndAttachementId(int id, int attId, string extention = null, int? status = null)
         {
-            return _attachementService.GetAttachementsByMailIdAndAttachementId(id, attId);
+            return _attachementRepository.GetAttachementsByMailIdAndAttachementIdAndFileExtentionAndStatusId(id, attId, extention, status);
         }
 
-        //// GET api/mails/{id}/attachements/{attId}?extention={ext}
-        //[Route("api/mails/{id}/attachements/{attId}/extention={ext}")]
-        //public Attachement GetByMailIdAndAttachementIdAndFileExtention(int id, int attId, string ext)
-        //{
-        //    return _attachementService.GetAttachementsByMailIdAndAttachementIdAndFileExtention(id, attId, ext);
-        //}
+        // PUT api/mails/{id}/attachements/{attId}
+        [Route("api/mails/{id}/attachements/{attId}")]
+        public bool Put(int id, int attId, Attachement attachement)
+        {
+            return _attachementRepository.Update(id, attId, attachement);
+        }
 
-        //// GET api/mails/{id}/attachements/{attId}?extention={ext}?status={status}
-        //[Route("api/mails/{id}/attachements/{attId}/extention={ext}/status={status}")]
-        //public Attachement GetByMailIdAndAttachementIdAndFileExtentionAndStatusId(int id, int attId, string ext, int status)
-        //{
-        //    return _attachementService.GetAttachementsByMailIdAndAttachementIdAndFileExtentionAndStatusId(id, attId, ext, status);
-        //}
+        // POST api/mails/{id}/attachements
+        [Route("api/mails/{id}/attachements")]
+        public bool Post(int id, Attachement attachement)
+        {
+            if (id != attachement.MailId)
+                return false;
+            return _attachementRepository.Add(attachement);
+        }
+
+        // DELETE api/mails/{id}/attachements/{attId}
+        [Route("api/mails/{id}/attachements/{attId}")]
+        public bool Delete(int id, int attId)
+        {
+            var attachementToDelete = _attachementRepository.GetAttachementsByMailIdAndAttachementId(id, attId);
+            if (attachementToDelete == null)
+                return false;
+            return _attachementRepository.Delete(attachementToDelete);
+        }
 
     }
 }
