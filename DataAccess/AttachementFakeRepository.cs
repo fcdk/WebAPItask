@@ -66,6 +66,9 @@ namespace Epam.Sdesk.DataAccess
 
         public bool Update(int mailId, int attachementId, Attachement attachement)
         {
+            if (mailId != attachement.MailId || attachementId != attachement.Id)
+                return false;
+
             var attachementToUpdate = _mails.FirstOrDefault(x => x.MailId == mailId && x.Id == attachementId);
             if (attachementToUpdate == null)
                 return false;

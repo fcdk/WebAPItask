@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
 using System.Web.Http;
 using Epam.Sdesk.DataAccess;
 using Epam.Sdesk.Model;
@@ -10,33 +12,45 @@ namespace SDSK.API.Controllers
         private readonly MailFakeRepository _mailRepository = new MailFakeRepository();
 
         // GET api/mails
-        public IEnumerable<Mail> GetAll()
+        public HttpResponseMessage GetAll()
         {
-            return _mailRepository.GetAll();
+            return Request.CreateResponse(HttpStatusCode.OK, _mailRepository.GetAll());
         }
 
         // GET /api/mails/{id}
-        public Mail Get(long id)
+        public HttpResponseMessage Get(long id)
         {
-            return _mailRepository.GetById(id);
+            var mail = _mailRepository.GetById(id);
+            if (mail == null)
+                return Request.CreateResponse(HttpStatusCode.NotFound);
+            return Request.CreateResponse(HttpStatusCode.OK, mail);
         }
 
         // PUT /api/mails/{id}
-        public bool Put(long id, Mail mail)
+        public HttpResponseMessage Put(long id, Mail mail)
         {
-            return _mailRepository.Update(id, mail);
+            bool isSuccessfulUpdate = _mailRepository.Update(id, mail);
+            if (!isSuccessfulUpdate)
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
 
         // POST /api/mails
-        public bool Post(Mail mail)
+        public HttpResponseMessage Post(Mail mail)
         {
-            return _mailRepository.Add(mail);
+            bool isSuccessfulAdd = _mailRepository.Add(mail);
+            if (!isSuccessfulAdd)
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
 
         // DELETE /api/mails/{id}
-        public bool Delete(long id)
+        public HttpResponseMessage Delete(long id)
         {
-            return _mailRepository.Delete(id);
+            bool isSuccessfulDelete = _mailRepository.Delete(id);
+            if (!isSuccessfulDelete)
+                return Request.CreateResponse(HttpStatusCode.NotFound);
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
 
     }

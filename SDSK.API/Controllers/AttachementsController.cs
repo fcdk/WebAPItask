@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Web.Http;
 using Epam.Sdesk.DataAccess;
 using Epam.Sdesk.Model;
@@ -11,42 +13,55 @@ namespace SDSK.API.Controllers
 
         // GET api/mails/{id}/attachements
         [Route("api/mails/{id}/attachements")]
-        public IEnumerable<Attachement> GetByMailId(int id)
+        public HttpResponseMessage GetByMailId(int id)
         {
-            return _attachementRepository.GetAttachementsByMailId(id);
+            var attachements = _attachementRepository.GetAttachementsByMailId(id);
+            if(attachements.Count() == 0)
+                return Request.CreateResponse(HttpStatusCode.NotFound);
+            return Request.CreateResponse(HttpStatusCode.OK, attachements);
         }
 
         // GET api/mails/{id}/attachements/{attId}?extention={ext}&status={status}
         [Route("api/mails/{id}/attachements/{attId}")]
-        public Attachement GetByMailIdAndAttachementId(int id, int attId, string extention = null, int? status = null)
+        public HttpResponseMessage GetByMailIdAndAttachementId(int id, int attId, string extention = null, int? status = null)
         {
-            return _attachementRepository.GetAttachementsByMailIdAndAttachementIdAndFileExtentionAndStatusId(id, attId, extention, status);
+            var attachement = _attachementRepository.GetAttachementsByMailIdAndAttachementIdAndFileExtentionAndStatusId(id, attId, extention, status);
+            if (attachement == null)
+                return Request.CreateResponse(HttpStatusCode.NotFound);
+            return Request.CreateResponse(HttpStatusCode.OK, attachement);
         }
 
         // PUT api/mails/{id}/attachements/{attId}
         [Route("api/mails/{id}/attachements/{attId}")]
-        public bool Put(int id, int attId, Attachement attachement)
+        public HttpResponseMessage Put(int id, int attId, Attachement attachement)
         {
-            return _attachementRepository.Update(id, attId, attachement);
+            bool isSuccessfulUpdate = _attachementRepository.Update(id, attId, attachement);
+            if (!isSuccessfulUpdate)
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
 
         // POST api/mails/{id}/attachements
         [Route("api/mails/{id}/attachements")]
-        public bool Post(int id, Attachement attachement)
+        public HttpResponseMessage Post(int id, Attachement attachement)
         {
             if (id != attachement.MailId)
-                return false;
-            return _attachementRepository.Add(attachement);
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+            if(_attachementRepository.Add(attachement))
+                return Request.CreateResponse(HttpStatusCode.OK);
+            return Request.CreateResponse(HttpStatusCode.InternalServerError);
         }
 
         // DELETE api/mails/{id}/attachements/{attId}
         [Route("api/mails/{id}/attachements/{attId}")]
-        public bool Delete(int id, int attId)
+        public HttpResponseMessage Delete(int id, int attId)
         {
             var attachementToDelete = _attachementRepository.GetAttachementsByMailIdAndAttachementId(id, attId);
             if (attachementToDelete == null)
-                return false;
-            return _attachementRepository.Delete(attachementToDelete);
+                return Request.CreateResponse(HttpStatusCode.NotFound);
+            if (_attachementRepository.Delete(attachementToDelete))
+                return Request.CreateResponse(HttpStatusCode.OK);
+            return Request.CreateResponse(HttpStatusCode.InternalServerError);
         }
 
     }

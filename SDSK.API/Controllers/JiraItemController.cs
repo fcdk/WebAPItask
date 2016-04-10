@@ -1,6 +1,7 @@
-﻿using System.Web.Http;
+﻿using System.Net;
+using System.Net.Http;
+using System.Web.Http;
 using Epam.Sdesk.DataAccess;
-using Epam.Sdesk.Model;
 
 namespace SDSK.API.Controllers
 {
@@ -10,14 +11,17 @@ namespace SDSK.API.Controllers
 
         // GET api/jiraitems/{id}
         [Route("api/jiraitems/{id}")]
-        public JiraItem Get(long id)
+        public HttpResponseMessage Get(long id)
         {
-            return _jiraItemRepository.GetById(id);
+            var jiraItem = _jiraItemRepository.GetById(id);
+            if(jiraItem == null)
+                return Request.CreateResponse(HttpStatusCode.NotFound);
+            return Request.CreateResponse(HttpStatusCode.OK, jiraItem);
         }
 
-        //GET api/jiraitems (must return the same as for GET api/jiraitems/1)
+        // GET api/jiraitems (must return the same as for GET api/jiraitems/1)
         [Route("api/jiraitems")]
-        public JiraItem Get()
+        public HttpResponseMessage Get()
         {
             return Get(1);
         }

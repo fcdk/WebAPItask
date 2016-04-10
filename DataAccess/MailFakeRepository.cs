@@ -38,6 +38,9 @@ namespace Epam.Sdesk.DataAccess
 
         public bool Update(long id, Mail mail)
         {
+            if (id != mail.Id)
+                return false;
+
             var mailToUpdate = _mails.FirstOrDefault(x => x.Id == id);
             if (mailToUpdate == null)
                 return false;
