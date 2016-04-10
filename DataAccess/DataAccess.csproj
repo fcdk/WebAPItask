@@ -56,6 +56,7 @@
     <Compile Include="AttachementFakeRepository.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="IUnitOfWork.cs" />
+    <Compile Include="JiraItemFakeRepository.cs" />
     <Compile Include="MailFakeRepository.cs" />
     <Compile Include="MailService.cs" />
     <Compile Include="Program.cs" />
