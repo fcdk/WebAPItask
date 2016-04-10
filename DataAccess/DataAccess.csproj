@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="IRepository.cs" />
     <Compile Include="IUnitOfWork.cs" />
+    <Compile Include="MailFakeService.cs" />
     <Compile Include="MailService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
