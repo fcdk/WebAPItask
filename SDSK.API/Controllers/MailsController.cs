@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Net;
+﻿using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using Epam.Sdesk.DataAccess;
+using DataLayer;
 using Epam.Sdesk.Model;
 
 namespace SDSK.API.Controllers

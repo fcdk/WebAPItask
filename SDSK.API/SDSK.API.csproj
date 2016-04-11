@@ -111,14 +111,11 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DataAccess\DataAccess.csproj">
-      <Project>{703e81ed-43d9-4570-9733-6e071dad6a48}</Project>
-      <Name>DataAccess</Name>
+    <ProjectReference Include="..\DataLayer\DataLayer.csproj">
+      <Project>{32b83ab0-f260-47a2-a468-cdfea45b97fc}</Project>
+      <Name>DataLayer</Name>
     </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{111e4442-eb73-48a4-95a1-5e700de79eeb}</Project>
