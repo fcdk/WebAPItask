@@ -1,6 +1,7 @@
 ﻿using System.Web.Http;
+using SDSK.API;
 
-namespace SDSK.API
+namespace WebHost
 {
     public class WebApiApplication : System.Web.HttpApplication
     {

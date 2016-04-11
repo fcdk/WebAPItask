@@ -68,7 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SDSK.API\SDSK.API.csproj">
-      <Project>{d1c205f7-343c-45e1-a419-e922c2127f37}</Project>
+      <Project>{a8331fa3-61f3-4b22-97b6-eccfa07d1ee0}</Project>
       <Name>SDSK.API</Name>
     </ProjectReference>
   </ItemGroup>
