@@ -1,4 +1,6 @@
 ﻿using System.Web.Http;
+using System.Web.Http.ExceptionHandling;
+using log4net.Config;
 
 namespace SDSK.API
 {
@@ -6,6 +8,9 @@ namespace SDSK.API
     {
         public static void Register(HttpConfiguration config)
         {
+            BasicConfigurator.Configure();
+            config.Services.Add(typeof(IExceptionLogger), new ExceptionLogger());
+
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
