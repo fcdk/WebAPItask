@@ -8,12 +8,15 @@ namespace SelfHost
     {
         static void Main(string[] args)
         {
-            var config = new HttpSelfHostConfiguration("http://localhost:1994");
+            const string url = "http://localhost:1994";
+
+            var config = new HttpSelfHostConfiguration(url);
             WebApiConfig.Register(config);
 
             using (HttpSelfHostServer server = new HttpSelfHostServer(config))
             {
                 server.OpenAsync().Wait();
+                Console.WriteLine("Use " + url);
                 Console.WriteLine("Press Enter to quit.");
                 Console.ReadLine();
             }

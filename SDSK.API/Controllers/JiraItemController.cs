@@ -10,20 +10,13 @@ namespace SDSK.API.Controllers
         private readonly JiraItemFakeRepository _jiraItemRepository = new JiraItemFakeRepository();
 
         // GET api/jiraitems/{id}
-        [Route("api/jiraitems/{id}")]
-        public HttpResponseMessage Get(long id)
+        [Route("api/jiraitems/{id?}")]
+        public HttpResponseMessage Get(long id = 1)
         {
             var jiraItem = _jiraItemRepository.GetById(id);
             if(jiraItem == null)
                 return Request.CreateResponse(HttpStatusCode.NotFound);
             return Request.CreateResponse(HttpStatusCode.OK, jiraItem);
-        }
-
-        // GET api/jiraitems (must return the same as for GET api/jiraitems/1)
-        [Route("api/jiraitems")]
-        public HttpResponseMessage Get()
-        {
-            return Get(1);
         }
 
     }
