@@ -53,9 +53,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Attributes\ApiVersionRouteAttribute.cs" />
+    <Compile Include="Constraints\VersionConstraint.cs" />
     <Compile Include="Controllers\AttachementsController.cs" />
     <Compile Include="Controllers\JiraItemController.cs" />
     <Compile Include="Controllers\MailsController.cs" />
+    <Compile Include="Controllers\MailsController2.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
