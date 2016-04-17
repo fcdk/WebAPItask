@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using DataLayer.RepositoryInterfaces;
 using Epam.Sdesk.Model;
 
-namespace DataLayer
+namespace DataLayer.Repositories
 {
-    public class AttachementFakeRepository
+    public class AttachementFakeRepository : IAttachementRepository
     {
         private readonly ICollection<Attachement> _mails = new List<Attachement>
         {

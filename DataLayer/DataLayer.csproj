@@ -41,10 +41,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AttachementFakeRepository.cs" />
-    <Compile Include="JiraItemFakeRepository.cs" />
-    <Compile Include="MailFakeRepository.cs" />
+    <Compile Include="Repositories\AttachementFakeRepository.cs" />
+    <Compile Include="Repositories\JiraItemFakeRepository.cs" />
+    <Compile Include="Repositories\MailFakeRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RepositoryInterfaces\IAttachementRepository.cs" />
+    <Compile Include="RepositoryInterfaces\IJiraItemRepository.cs" />
+    <Compile Include="RepositoryInterfaces\IMailRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Model\Model.csproj">

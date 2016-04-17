@@ -2,14 +2,19 @@
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using DataLayer;
+using DataLayer.RepositoryInterfaces;
 using Epam.Sdesk.Model;
 
 namespace SDSK.API.Controllers
 {
     public class AttachementsController : ApiController
     {
-        private readonly AttachementFakeRepository _attachementRepository = new AttachementFakeRepository();
+        private readonly IAttachementRepository _attachementRepository;
+
+        public AttachementsController(IAttachementRepository attachementRepository)
+        {
+            _attachementRepository = attachementRepository;
+        }
 
         // GET api/mails/{id}/attachements
         [Route("api/mails/{id}/attachements")]

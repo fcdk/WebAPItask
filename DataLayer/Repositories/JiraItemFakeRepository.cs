@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using DataLayer.RepositoryInterfaces;
 using Epam.Sdesk.Model;
 
-namespace DataLayer
+namespace DataLayer.Repositories
 {
-    public class JiraItemFakeRepository
+    public class JiraItemFakeRepository : IJiraItemRepository
     {
         private readonly ICollection<JiraItem> _jiraItems = new List<JiraItem>
         {

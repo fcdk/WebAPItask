@@ -2,25 +2,30 @@
 using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Web.Http;
-using DataLayer;
+using DataLayer.RepositoryInterfaces;
 using SDSK.API.Regexes;
 
 namespace SDSK.API.Controllers
 {
     public class JiraItemController : ApiController
     {
-        private readonly JiraItemFakeRepository _jiraItemRepository = new JiraItemFakeRepository();
+        private readonly IJiraItemRepository _jiraItemRepository;
         private readonly Regex _jiraRegex = new JiraIdRegex().Get();
 
-        //// GET api/jiraitems/{id}
-        //[Route("api/jiraitems/{id?}")]
-        //public HttpResponseMessage Get(long id = 1)
-        //{
-        //    var jiraItem = _jiraItemRepository.GetById(id);
-        //    if(jiraItem == null)
-        //        return Request.CreateResponse(HttpStatusCode.NotFound);
-        //    return Request.CreateResponse(HttpStatusCode.OK, jiraItem);
-        //}
+        public JiraItemController(IJiraItemRepository jiraItemRepository)
+        {
+            _jiraItemRepository = jiraItemRepository;
+        }
+
+        // GET api/jiraitems/{id}
+        [Route("api/jiraitems/{id?}")]
+        public HttpResponseMessage Get(long id = 1)
+        {
+            var jiraItem = _jiraItemRepository.GetById(id);
+            if (jiraItem == null)
+                return Request.CreateResponse(HttpStatusCode.NotFound);
+            return Request.CreateResponse(HttpStatusCode.OK, jiraItem);
+        }
 
         // GET api/jiraitems/{id:jiraid}
         [Route("api/jiraitems/{id:jiraid}")]

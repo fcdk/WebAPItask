@@ -1,24 +1,30 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using DataLayer.RepositoryInterfaces;
 using Epam.Sdesk.Model;
 
-namespace DataLayer
+namespace DataLayer.Repositories
 {
-    public class MailFakeRepository
+    public class MailFakeRepository : IMailRepository
     {
-        private readonly ICollection<Mail> _mails = new List<Mail>
+        private readonly ICollection<Mail> _mails;
+
+        public MailFakeRepository()
         {
-            new Mail
+            _mails = new List<Mail>
             {
-                Id = 1,
-                Sender = "lol@lol.com"
-            },
-            new Mail
-            {
-                Id = 2,
-                Sender = "ahah@ahaha.com"
-            }
-        };
+                new Mail
+                {
+                    Id = 1,
+                    Sender = "lol@lol.com"
+                },
+                new Mail
+                {
+                    Id = 2,
+                    Sender = "ahah@ahaha.com"
+                }
+            };
+        }
 
         public bool Add(Mail mail)
         {

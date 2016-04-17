@@ -1,14 +1,19 @@
 ﻿using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using DataLayer;
+using DataLayer.RepositoryInterfaces;
 using Epam.Sdesk.Model;
 
 namespace SDSK.API.Controllers
 {
     public class MailsController : ApiController
     {
-        private readonly MailFakeRepository _mailRepository = new MailFakeRepository();
+        private readonly IMailRepository _mailRepository;
+
+        public MailsController(IMailRepository mailRepository)
+        {
+            _mailRepository = mailRepository;
+        }
 
         // GET api/mails
         public HttpResponseMessage GetAll()
@@ -54,3 +59,4 @@ namespace SDSK.API.Controllers
 
     }
 }
+

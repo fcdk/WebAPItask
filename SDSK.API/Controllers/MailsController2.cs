@@ -2,7 +2,7 @@
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using DataLayer;
+using DataLayer.RepositoryInterfaces;
 using Epam.Sdesk.Model;
 using SDSK.API.Attributes;
 
@@ -10,8 +10,14 @@ namespace SDSK.API.Controllers
 {
     public class Mails2Controller : ApiController
     {
-        private readonly MailFakeRepository _mailRepository = new MailFakeRepository();
-        private readonly AttachementFakeRepository _attachementRepository = new AttachementFakeRepository();
+        private readonly IMailRepository _mailRepository;
+        private readonly IAttachementRepository _attachementRepository;
+
+        public Mails2Controller(IMailRepository mailRepository, IAttachementRepository attachementRepository)
+        {
+            _mailRepository = mailRepository;
+            _attachementRepository = attachementRepository;
+        }
 
         // GET /api/mails
         [ApiVersionRoute("api/mails")]
