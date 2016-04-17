@@ -12,15 +12,14 @@ namespace SDSK.API
             config
                 .EnableSwagger(c =>
                 {
-                    c.SingleApiVersion("v1", "A title for your API");
-                    c.IncludeXmlComments("SDSK.API.XML");
+                    c.SingleApiVersion("v1", "SDSK.API");
                 })
                 .EnableSwaggerUi(c =>
                 {
                     c.DocExpansion(DocExpansion.Full);
                 });
 
-            BasicConfigurator.Configure();
+            XmlConfigurator.Configure();
             config.Services.Add(typeof(IExceptionLogger), new ExceptionLogger());
 
             config.MapHttpAttributeRoutes();
