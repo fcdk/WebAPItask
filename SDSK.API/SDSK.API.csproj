@@ -85,12 +85,14 @@
     <Compile Include="App_Start\ExceptionLogger.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Attributes\ApiVersionRouteAttribute.cs" />
+    <Compile Include="Constraints\JiraIdConstraint.cs" />
     <Compile Include="Constraints\VersionConstraint.cs" />
     <Compile Include="Controllers\AttachementsController.cs" />
     <Compile Include="Controllers\JiraItemController.cs" />
     <Compile Include="Controllers\MailsController.cs" />
     <Compile Include="Controllers\MailsController2.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Regexes\JiraIdRegex.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataLayer\DataLayer.csproj">
@@ -106,6 +108,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

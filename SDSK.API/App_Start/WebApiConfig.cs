@@ -1,6 +1,8 @@
 ﻿using System.Web.Http;
 using System.Web.Http.ExceptionHandling;
+using System.Web.Http.Routing;
 using log4net.Config;
+using SDSK.API.Constraints;
 using Swashbuckle.Application;
 
 namespace SDSK.API
@@ -9,6 +11,7 @@ namespace SDSK.API
     {
         public static void Register(HttpConfiguration config)
         {
+            // swagger configuration
             config
                 .EnableSwagger(c =>
                 {
@@ -19,11 +22,13 @@ namespace SDSK.API
                     c.DocExpansion(DocExpansion.Full);
                 });
 
+            // log4net configuration
             XmlConfigurator.Configure();
             config.Services.Add(typeof(IExceptionLogger), new ExceptionLogger());
 
-            config.MapHttpAttributeRoutes();
-
+            var constraintResolver = new DefaultInlineConstraintResolver();
+            constraintResolver.ConstraintMap.Add("jiraid", typeof(JiraIdConstraint));
+            config.MapHttpAttributeRoutes(constraintResolver);
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
