@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Web.Http;
 using DataLayer.RepositoryInterfaces;
 using Epam.Sdesk.Model;
+using SDSK.API.Filters;
 
 namespace SDSK.API.Controllers
 {
